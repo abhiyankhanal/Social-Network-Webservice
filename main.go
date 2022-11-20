@@ -23,7 +23,7 @@ func main() {
 	r.POST("/login", db.login)
 	r.POST("/register", db.register)
 	r.POST("/:user/post", db.createPost)
-	r.GET("/home", home)
+	r.GET("/home", db.home)
 
 	r.Run()
 }
@@ -89,7 +89,8 @@ func (db dbManager) createPost(ctx *gin.Context) {
 	ctx.JSON(http.StatusCreated, gin.H{"data": "Post Created Successfully"})
 }
 
-func home(ctx *gin.Context) {
+func (db dbManager) home(ctx *gin.Context) {
+	var posts []model.Post
 	token := ctx.Request.Header.Get("Authorization")
 	token = token[7:len(token)]
 	claims := jwt.MapClaims{}
@@ -100,6 +101,22 @@ func home(ctx *gin.Context) {
 		ctx.JSON(http.StatusUnauthorized, gin.H{"error": "Invalid token"})
 		return
 	}
+	client, err := db.connect(db.URL)
+	if err != nil {
+		fmt.Print(err)
+	}
+	collection := client.Database("test").Collection("posts")
+	filters := bson.D{}
+	cursor, err := collection.Find(context.Background(), filters)
 
-	ctx.JSON(http.StatusOK, gin.H{"data": "Home"})
+	if err != nil {
+		ctx.JSON(http.StatusUnauthorized, gin.H{"error": "Failed to make DB request"})
+		return
+	}
+	if err = cursor.All(ctx, &posts); err != nil {
+		ctx.JSON(http.StatusUnauthorized, gin.H{"error": "Failed to read records"})
+		return
+	}
+
+	ctx.JSON(http.StatusOK, posts)
 }
