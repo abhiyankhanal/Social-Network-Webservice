@@ -83,7 +83,7 @@ func (db DBManager) Register(ctx *gin.Context) {
 	user.Token = utilities.CreateToken(user.Username)
 	user.ID = fmt.Sprint(rand.Intn(9999999))
 	//validation of unique userID
-	err = collection.FindOne(ctx, bson.M{"id": user.ID}).Decode(&temp)
+	err = collection.FindOne(context.Background(), bson.M{"id": user.ID}).Decode(&temp)
 	if err != nil {
 		fmt.Println(err)
 	}
@@ -108,11 +108,10 @@ func (db DBManager) CreatePost(ctx *gin.Context) {
 		fmt.Print(err)
 	}
 	collection := client.Database("test").Collection("posts")
-	//TODO validate if it is present in db
 	post.ID = fmt.Sprint(rand.Int())
 	post.UserID = ctx.Param("user")
 	post.TimeStamp = time.Now().Format("2017-09-07")
-	//TODO check if the PostCountOnSameDay count is less than 10 and increase th count on every insert
+	//TODO check if the PostCountOnSameDay count is less than 10 and increase the count on every insert
 	_, err = collection.InsertOne(context.Background(), post)
 	if err != nil {
 		ctx.JSON(http.StatusConflict, gin.H{"error": "Error while creating post"})
@@ -131,7 +130,16 @@ func (db DBManager) AddFriend(ctx *gin.Context) {
 	collection := client.Database("test").Collection("links")
 	link.MyID = ctx.Param("user")
 	link.FriendID = ctx.Param("friend_id")
-	//todo check if the friend is present and the list is less tha 100
+	//todo check if the friend is present and the list is less tha 100, add the friend id in associated nodes
+
+	// collection.findAndModify(context.Background(),bson.A{
+	// 	query: {"id": link.FriendID},
+	// 	update: { "$addToSet": "friends_id": link.MyID }
+	// })
+	// collection.findAndModify(context.Background(),bson.A{
+	// 	query: {"id": link.MyID},
+	// 	update: { "$addToSet": "friends_id": link.FriendID }
+	// })
 	_, err = collection.InsertOne(context.Background(), link)
 	if err != nil {
 		ctx.JSON(http.StatusConflict, gin.H{"error": "Error while creating link"})
@@ -164,7 +172,7 @@ func (db DBManager) Home(ctx *gin.Context) {
 		ctx.JSON(http.StatusUnauthorized, gin.H{"error": "Failed to make DB request"})
 		return
 	}
-	//TODO change the routes to /:user/home and use user to fetch friend list and show only their associated posts
+	//TODO Use user to fetch friend list and show only their associated posts & the self post
 	if err = cursor.All(ctx, &posts); err != nil {
 		ctx.JSON(http.StatusUnauthorized, gin.H{"error": "Failed to read records"})
 		return

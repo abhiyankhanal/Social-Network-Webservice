@@ -1,12 +1,12 @@
 package model
 
 type User struct {
-	ID       string `json:"id"`
-	Username string `json:"username"`
-	Password string `json:"password"`
-	Friends  []User `json:"friends"`
-	Token    string `json:"token"`
-	Posts    []Post `json:"posts"`
+	ID       string   `json:"id"`
+	Username string   `json:"username"`
+	Password string   `json:"password"`
+	Friends  []string `json:"friends_id"`
+	Token    string   `json:"token"`
+	Posts    []Post   `json:"posts"`
 }
 
 type Post struct {
