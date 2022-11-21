@@ -167,3 +167,9 @@ There are 3 high level packages used in this project
 - Gin-Gonic ("github.com/gin-gonic/gin")
 - jwt-GO ("github.com/dgrijalva/jwt-go")
 
+## Some screenshots ##
+<img width="1014" alt="image" src="https://user-images.githubusercontent.com/51784021/203018614-825b7dd7-5372-4892-95a7-d15307681e84.png">
+<img width="912" alt="image" src="https://user-images.githubusercontent.com/51784021/203018842-7a1300f6-6383-4559-ac2c-bb450ee76a7a.png">
+<img width="1019" alt="image" src="https://user-images.githubusercontent.com/51784021/203018971-7f7181a4-3d30-41bf-8787-bf34b12fb604.png">
+
+
