@@ -15,7 +15,7 @@ func main() {
 	r.POST("/register", dbM.Register)
 	r.POST("/:user/post", dbM.CreatePost)
 	r.POST("/:user/add/:friend_id", dbM.AddFriend)
-	r.GET("/home", dbM.Home)
+	r.GET(":user/home", dbM.Home)
 
 	r.Run()
 }
