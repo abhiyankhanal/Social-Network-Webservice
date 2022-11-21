@@ -68,13 +68,12 @@ func (db DBManager) Login(ctx *gin.Context) {
 		ctx.JSON(http.StatusUnauthorized, gin.H{"error": "Invalid credentials"})
 		return
 	}
-
 	token.Token = utilities.CreateToken(user.Username)
 	ctx.JSON(http.StatusOK, token)
 }
 
 func (db DBManager) Register(ctx *gin.Context) {
-	var user model.User
+	var user, temp model.User
 	ctx.BindJSON(&user)
 	client, err := db.Connect(db.URL)
 	if err != nil {
@@ -82,10 +81,18 @@ func (db DBManager) Register(ctx *gin.Context) {
 	}
 	collection := client.Database("test").Collection("users")
 	user.Token = utilities.CreateToken(user.Username)
-	//TODO validate if it is present in db
 	user.ID = fmt.Sprint(rand.Intn(9999999))
-	_, err = collection.InsertOne(context.Background(), user)
+	//validation of unique userID
+	err = collection.FindOne(ctx, bson.M{"id": user.ID}).Decode(&temp)
 	if err != nil {
+		fmt.Println(err)
+	}
+	if temp.ID == "" {
+		_, err = collection.InsertOne(context.Background(), user)
+		if err != nil {
+			fmt.Println(err)
+		}
+	} else {
 		ctx.JSON(http.StatusConflict, gin.H{"error": "Username already exists"})
 		return
 	}
@@ -104,6 +111,7 @@ func (db DBManager) CreatePost(ctx *gin.Context) {
 	//TODO validate if it is present in db
 	post.ID = fmt.Sprint(rand.Int())
 	post.UserID = ctx.Param("user")
+	post.TimeStamp = time.Now().Format("2017-09-07")
 	//TODO check if the PostCountOnSameDay count is less than 10 and increase th count on every insert
 	_, err = collection.InsertOne(context.Background(), post)
 	if err != nil {
