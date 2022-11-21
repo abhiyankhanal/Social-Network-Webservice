@@ -2,14 +2,16 @@ package main
 
 import (
 	"e/db"
+	"os"
 
 	"github.com/gin-gonic/gin"
 )
 
 func main() {
+	var URL string
 	r := gin.Default()
 	dbM := db.DBManager{
-		URL: "mongodb+srv://root:1234@cluster0.ik76ncs.mongodb.net/?retryWrites=true&w=majority",
+		URL: os.Getenv(URL),
 	}
 	r.POST("/login", dbM.Login)
 	r.POST("/register", dbM.Register)

@@ -1,0 +1,397 @@
+{
+	"info": {
+		"_postman_id": "4e43bca4-131d-4a74-b582-e7ac978e9130",
+		"name": "Web-Service",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "19794622"
+	},
+	"item": [
+		{
+			"name": "home",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJhdXRob3JpemVkIjp0cnVlLCJ1c2VybmFtZSI6ImFiYyJ9.OGiOsBwxR4s22PkO5dqZklY0ODrKYJ1ZFdfFe36ewe0",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{SERVICE_URL}}/100/home",
+					"host": [
+						"{{SERVICE_URL}}"
+					],
+					"path": [
+						"100",
+						"home"
+					]
+				}
+			},
+			"response": [
+				{
+					"name": "success",
+					"originalRequest": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{SERVICE_URL}}/100/home",
+							"host": [
+								"{{SERVICE_URL}}"
+							],
+							"path": [
+								"100",
+								"home"
+							]
+						}
+					},
+					"status": "OK",
+					"code": 200,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "Content-Type",
+							"value": "application/json; charset=utf-8"
+						},
+						{
+							"key": "Date",
+							"value": "Mon, 21 Nov 2022 10:45:54 GMT"
+						},
+						{
+							"key": "Content-Length",
+							"value": "195"
+						}
+					],
+					"cookie": [],
+					"body": "[\n    {\n        \"id\": \"5577006791947779410\",\n        \"body\": \"hello-world\",\n        \"user_id\": \"abc\",\n        \"post_count\": 0,\n        \"time_stamp\": \"\"\n    },\n    {\n        \"id\": \"5577006791947779410\",\n        \"body\": \"hello-world\",\n        \"user_id\": \"123\",\n        \"post_count\": 0,\n        \"time_stamp\": \"\"\n    }\n]"
+				}
+			]
+		},
+		{
+			"name": "login",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"username\":\"abc\",\n    \"password\":\"abc\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{SERVICE_URL}}/login",
+					"host": [
+						"{{SERVICE_URL}}"
+					],
+					"path": [
+						"login"
+					]
+				}
+			},
+			"response": [
+				{
+					"name": "invalid_credentials",
+					"originalRequest": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"username\":\"test\",\n    \"password\":\"test\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{SERVICE_URL}}/login",
+							"host": [
+								"{{SERVICE_URL}}"
+							],
+							"path": [
+								"login"
+							]
+						}
+					},
+					"status": "Unauthorized",
+					"code": 401,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "Content-Type",
+							"value": "application/json; charset=utf-8"
+						},
+						{
+							"key": "Date",
+							"value": "Mon, 21 Nov 2022 10:41:57 GMT"
+						},
+						{
+							"key": "Content-Length",
+							"value": "31"
+						}
+					],
+					"cookie": [],
+					"body": "{\n    \"error\": \"Invalid credentials\"\n}"
+				},
+				{
+					"name": "success",
+					"originalRequest": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"username\":\"abc\",\n    \"password\":\"abc\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{SERVICE_URL}}/login",
+							"host": [
+								"{{SERVICE_URL}}"
+							],
+							"path": [
+								"login"
+							]
+						}
+					},
+					"status": "OK",
+					"code": 200,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "Content-Type",
+							"value": "application/json; charset=utf-8"
+						},
+						{
+							"key": "Date",
+							"value": "Mon, 21 Nov 2022 10:42:51 GMT"
+						},
+						{
+							"key": "Content-Length",
+							"value": "141"
+						}
+					],
+					"cookie": [],
+					"body": "{\n    \"token\": \"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJhdXRob3JpemVkIjp0cnVlLCJ1c2VybmFtZSI6ImFiYyJ9.OGiOsBwxR4s22PkO5dqZklY0ODrKYJ1ZFdfFe36ewe0\"\n}"
+				}
+			]
+		},
+		{
+			"name": "add friend",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"url": {
+					"raw": "{{SERVICE_URL}}/101/add/102",
+					"host": [
+						"{{SERVICE_URL}}"
+					],
+					"path": [
+						"101",
+						"add",
+						"102"
+					]
+				}
+			},
+			"response": [
+				{
+					"name": "success",
+					"originalRequest": {
+						"method": "POST",
+						"header": [],
+						"url": {
+							"raw": "{{SERVICE_URL}}/101/add/102",
+							"host": [
+								"{{SERVICE_URL}}"
+							],
+							"path": [
+								"101",
+								"add",
+								"102"
+							]
+						}
+					},
+					"status": "Bad Request",
+					"code": 400,
+					"_postman_previewlanguage": "plain",
+					"header": [
+						{
+							"key": "Date",
+							"value": "Mon, 21 Nov 2022 10:47:29 GMT"
+						},
+						{
+							"key": "Content-Length",
+							"value": "36"
+						},
+						{
+							"key": "Content-Type",
+							"value": "text/plain; charset=utf-8"
+						}
+					],
+					"cookie": [],
+					"body": "{\"data\":\"Link created successfully\"}"
+				}
+			]
+		},
+		{
+			"name": "timeline-post",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"body\":\"helloworld\"\n}"
+				},
+				"url": {
+					"raw": "{{SERVICE_URL}}/101/post",
+					"host": [
+						"{{SERVICE_URL}}"
+					],
+					"path": [
+						"101",
+						"post"
+					]
+				}
+			},
+			"response": [
+				{
+					"name": "success",
+					"originalRequest": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"body\":\"helloworld\"\n}"
+						},
+						"url": {
+							"raw": "{{SERVICE_URL}}/101/post",
+							"host": [
+								"{{SERVICE_URL}}"
+							],
+							"path": [
+								"101",
+								"post"
+							]
+						}
+					},
+					"status": "Created",
+					"code": 201,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "Content-Type",
+							"value": "application/json; charset=utf-8"
+						},
+						{
+							"key": "Date",
+							"value": "Mon, 21 Nov 2022 10:49:37 GMT"
+						},
+						{
+							"key": "Content-Length",
+							"value": "36"
+						}
+					],
+					"cookie": [],
+					"body": "{\n    \"data\": \"Post Created Successfully\"\n}"
+				}
+			]
+		},
+		{
+			"name": "register",
+			"request": {
+				"method": "GET",
+				"header": []
+			},
+			"response": [
+				{
+					"name": "already exist",
+					"originalRequest": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"username\":\"abc\",\n    \"password\":\"abc\"\n}"
+						},
+						"url": {
+							"raw": "{{SERVICE_URL}}/register",
+							"host": [
+								"{{SERVICE_URL}}"
+							],
+							"path": [
+								"register"
+							]
+						}
+					},
+					"status": "Conflict",
+					"code": 409,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "Content-Type",
+							"value": "application/json; charset=utf-8"
+						},
+						{
+							"key": "Date",
+							"value": "Mon, 21 Nov 2022 10:51:01 GMT"
+						},
+						{
+							"key": "Content-Length",
+							"value": "35"
+						}
+					],
+					"cookie": [],
+					"body": "{\n    \"error\": \"Username already exists\"\n}"
+				},
+				{
+					"name": "success",
+					"originalRequest": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"username\":\"abcdsasdadddssd\",\n    \"password\":\"abcsddsddsdsda\"\n}"
+						},
+						"url": {
+							"raw": "{{SERVICE_URL}}/register",
+							"host": [
+								"{{SERVICE_URL}}"
+							],
+							"path": [
+								"register"
+							]
+						}
+					},
+					"status": "Created",
+					"code": 201,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "Content-Type",
+							"value": "application/json; charset=utf-8"
+						},
+						{
+							"key": "Date",
+							"value": "Mon, 21 Nov 2022 10:57:37 GMT"
+						},
+						{
+							"key": "Content-Length",
+							"value": "23"
+						}
+					],
+					"cookie": [],
+					"body": "{\n    \"data\": \"User created\"\n}"
+				}
+			]
+		}
+	]
+}

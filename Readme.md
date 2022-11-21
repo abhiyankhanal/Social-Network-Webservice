@@ -4,6 +4,7 @@
 
 ## Getting Started ##
 - Clone the project in your system
+- Set environment variable foe URL as a mongo db query string
 - Make sure you have docker installed to start the application
 - After cloning, open a terminal, go to the root folder of the project and perform the
   following commands.
