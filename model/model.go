@@ -6,6 +6,7 @@ type User struct {
 	Password string `json:"password"`
 	Friends  []User `json:"friends"`
 	Token    string `json:"token"`
+	Posts    []Post `json:"posts"`
 }
 
 type Post struct {
@@ -16,4 +17,9 @@ type Post struct {
 
 type Token struct {
 	Token string `json:"token"`
+}
+
+type Links struct {
+	FriendID string `json:"friend_id"`
+	MyID     string `json:"my_id"`
 }
