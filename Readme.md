@@ -39,12 +39,20 @@
     "password":"abhiyan"
 }
 ```
+#### Error response ####
 
-#### Response parameters ####
+```json
+{
+    "error": "Invalid credentials"
+}
+```
+
+
+#### Request parameters ####
 
 | Name  |Description |
 | ------------- | ------------- | 
-| code  | 201 if success creating  |
+| code  | 201 if success creating, else 401 on unauthorized  |
 | username  | type:string |  
 | password  |type:string |  
 
