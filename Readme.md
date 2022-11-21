@@ -21,7 +21,7 @@
 # APIs #
 
 ## Register ##
-- This api will register any new user in the server/db. It will create a `bearer` token using `jwt` which can be used for authorization purpose.
+- This api will register any new user in the server/db. It will create a `bearer` token using `jwt` which can be used for authorization purpose. Unique 10 million uid is generated which limits the number upto 10 million.
 
 ### Resource URL ###
 
@@ -76,7 +76,7 @@
 | password  |type:string | 
 
 ## CreatePost ##
-- This api will register will create new post and store it in post collection of mongo DB.
+- This api will register will create new post and store it in post collection of mongo DB. TimeStamp will be used to track number of post created in that particular day.
 
 ### Resource URL ###
 
@@ -104,7 +104,7 @@
 | user_id  |type:string, from:URL | 
 
 ## Add Friends ##
-- This api will rbe used to create a link between two user objects, the link will be stored in db.
+- This api will rbe used to create a link between two user objects, the link will be stored in db. If the friends array has less that 100 User document/node then new friend will be added to that list.
 
 ### Resource URL ###
 

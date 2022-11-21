@@ -104,6 +104,7 @@ func (db DBManager) CreatePost(ctx *gin.Context) {
 	//TODO validate if it is present in db
 	post.ID = fmt.Sprint(rand.Int())
 	post.UserID = ctx.Param("user")
+	//TODO check if the PostCountOnSameDay count is less than 10 and increase th count on every insert
 	_, err = collection.InsertOne(context.Background(), post)
 	if err != nil {
 		ctx.JSON(http.StatusConflict, gin.H{"error": "Error while creating post"})
@@ -120,9 +121,9 @@ func (db DBManager) AddFriend(ctx *gin.Context) {
 		fmt.Print(err)
 	}
 	collection := client.Database("test").Collection("links")
-	//TODO validate if it is present in db
 	link.MyID = ctx.Param("user")
 	link.FriendID = ctx.Param("friend_id")
+	//todo check if the friend is present and the list is less tha 100
 	_, err = collection.InsertOne(context.Background(), link)
 	if err != nil {
 		ctx.JSON(http.StatusConflict, gin.H{"error": "Error while creating link"})

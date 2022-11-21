@@ -10,9 +10,10 @@ type User struct {
 }
 
 type Post struct {
-	ID     string `json:"id"`
-	Body   string `json:"body"`
-	UserID string `json:"user_id"`
+	ID                 string `json:"id"`
+	Body               string `json:"body"`
+	UserID             string `json:"user_id"`
+	PostCountOnSameDay int    `json:"post_count"`
 }
 
 type Token struct {
