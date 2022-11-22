@@ -14,6 +14,7 @@ type Post struct {
 	Body               string `json:"body"`
 	UserID             string `json:"user_id"`
 	PostCountOnSameDay int    `json:"post_count"`
+	ShareCount         int    `json:"share_count"`
 	TimeStamp          string `json:"time_stamp"`
 }
 
