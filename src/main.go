@@ -16,6 +16,7 @@ func main() {
 	r.POST("/login", dbM.Login)
 	r.POST("/register", dbM.Register)
 	r.POST("/:user/post", dbM.CreatePost)
+	r.POST("/share/:id", dbM.SharePost)
 	r.POST("/:user/add/:friend_id", dbM.AddFriend)
 	r.GET(":user/home", dbM.Home)
 

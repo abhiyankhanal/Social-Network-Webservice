@@ -111,6 +111,7 @@ func (db DBManager) CreatePost(ctx *gin.Context) {
 	post.ID = fmt.Sprint(rand.Int())
 	post.UserID = ctx.Param("user")
 	post.TimeStamp = time.Now().Format("2017-09-07")
+	post.ShareCount = 0
 	//TODO check if the PostCountOnSameDay count is less than 10 and increase the count on every insert
 	_, err = collection.InsertOne(context.Background(), post)
 	if err != nil {
@@ -118,6 +119,31 @@ func (db DBManager) CreatePost(ctx *gin.Context) {
 		return
 	}
 	ctx.JSON(http.StatusCreated, gin.H{"data": "Post Created Successfully"})
+}
+
+func (db DBManager) SharePost(ctx *gin.Context) {
+	var post model.Post
+	ctx.BindJSON(&post)
+	client, err := db.Connect(db.URL)
+	if err != nil {
+		fmt.Print(err)
+	}
+	collection := client.Database("test").Collection("posts")
+	post.ID = ctx.Param("id")
+	filter := bson.D{{Key: "id", Value: post.ID}}
+	update := bson.D{{"$inc", bson.D{{"sharecount", 1}}}}
+
+	_, err = collection.UpdateOne(
+		ctx,
+		filter,
+		update,
+		options.Update().SetUpsert(true),
+	)
+	if err != nil {
+		ctx.JSON(http.StatusConflict, gin.H{"error": "Error while sharing post, maybe the post is not created yet"})
+		return
+	}
+	ctx.JSON(http.StatusCreated, gin.H{"data": "Post Shared Successfully"})
 }
 
 func (db DBManager) AddFriend(ctx *gin.Context) {
